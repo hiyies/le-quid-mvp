@@ -1,27 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="prologue">
-  <h2><span class="dot-slash">./</span> {{ prologue['title'] }}</h2>
-  {% if prologue['intro'] %}<p class="intro">{{ prologue['intro'] }}</p>{% endif %}
 
-  <div class="right">
-    {% for r in replies %}
-      <article class="reply">
-        <div class="meta">
-          <strong>{{ r['alias'] or 'anonyme' }}</strong>
-          <span>— {{ r['created_at'] }}</span>
-        </div>
-        <p>{{ r['content'] }}</p>
-      </article>
-    {% else %}
-      <p>pas encore de répliques.</p>
-    {% endfor %}
+<div class="grid">
+  <section class="left">
+    <h2>./ {{ p['title'] }}</h2>
+    {% if p['intro'] %}<p class="intro">{{ p['intro'] }}</p>{% endif %}
+    {% if p['category'] %}<p class="tag">{{ p['category'] }}</p>{% endif %}
 
-    <form method="post" action="{{ url_for('reply', prologue_id=prologue['id']) }}" class="reply-form">
-      <input name="alias" placeholder="alias (ex. voltaire)">
-      <textarea name="content" placeholder="votre réplique…"></textarea>
+    <h3>répliques</h3>
+    <ul class="replies">
+      {% for r in replies %}
+        <li>
+          <div class="meta">{{ r['alias'] or 'anonyme' }} — {{ r['created_at'] }}</div>
+          <div class="txt">{{ r['content'] }}</div>
+        </li>
+      {% else %}
+        <li>pas encore de réplique</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <aside class="right">
+    <h3>répliquer</h3>
+    <form method="post" action="{{ url_for('post_reply') }}">
+      <input type="hidden" name="prologue_id" value="{{ p['id'] }}">
+      <input name="alias" placeholder="votre alias (optionnel)">
+      <textarea name="content" rows="5" placeholder="votre réplique..."></textarea>
       <button type="submit">répliquer</button>
     </form>
-  </div>
-</section>
+  </aside>
+</div>
+
 {% endblock %}
