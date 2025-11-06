@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>espace créatrice</h2>
+<form method="post" action="{{ url_for('login') }}" class="login">
+  <input name="code" placeholder="code admin">
+  <button type="submit">entrer</button>
+</form>
+{% endblock %}
