@@ -1,1 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="prologue">
+  <h2><span class="dot-slash">./</span> {{ prologue['title'] }}</h2>
+  {% if prologue['intro'] %}<p class="intro">{{ prologue['intro'] }}</p>{% endif %}
 
+  <div class="right">
+    {% for r in replies %}
+      <article class="reply">
+        <div class="meta">
+          <strong>{{ r['alias'] or 'anonyme' }}</strong>
+          <span>— {{ r['created_at'] }}</span>
+        </div>
+        <p>{{ r['content'] }}</p>
+      </article>
+    {% else %}
+      <p>pas encore de répliques.</p>
+    {% endfor %}
+
+    <form method="post" action="{{ url_for('reply', prologue_id=prologue['id']) }}" class="reply-form">
+      <input name="alias" placeholder="alias (ex. voltaire)">
+      <textarea name="content" placeholder="votre réplique…"></textarea>
+      <button type="submit">répliquer</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
