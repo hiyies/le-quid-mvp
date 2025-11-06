@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="prologue">
+  <h1>{{ p['title'] }}</h1>
+  <div class="meta">
+    {% if p['category_name'] %}<span class="chip">{{ p['category_name'] }}</span>{% endif %}
+    <span class="date">{{ p['created_at'][:16].replace('T',' ') }}</span>
+  </div>
+  {% if p['content'] %}<p class="body">{{ p['content'] }}</p>{% endif %}
+</article>
+
+<section class="replies">
+  <h3>./ répliques</h3>
+  <ul>
+    {% for r in replies %}
+      <li>
+        <div class="meta">
+          <span class="alias">{{ r['alias'] or 'anonyme' }}</span> — {{ r['created_at'][:16].replace('T',' ') }}
+        </div>
+        <p>{{ r['content'] }}</p>
+      </li>
+    {% else %}
+      <li>pas encore de répliques</li>
+    {% endfor %}
+  </ul>
+  <form method="post" class="reply-form">
+    <input name="alias" placeholder="votre pseudo (ex. quidian_lyon)" value="{{ request.cookies.get('alias','') }}">
+    <textarea name="content" placeholder="écrire une réplique…" required></textarea>
+    <button type="submit">répliquer</button>
+  </form>
+</section>
+{% endblock %}

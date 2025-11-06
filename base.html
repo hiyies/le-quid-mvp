@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>le quid — mvp</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='logo.svg') }}" alt="le quid" class="logo-img">
+      <span class="brand">le quid</span>
+    </div>
+    <nav class="nav">
+      <a href="{{ url_for('index') }}" class="{{ 'active' if not current_category else '' }}">aujourd’hui</a>
+      <a href="{{ url_for('index') }}?category=politique" class="{{ 'active' if current_category=='politique' else '' }}">politique</a>
+      <a href="{{ url_for('index') }}?category=sport" class="{{ 'active' if current_category=='sport' else '' }}">sport</a>
+      <a href="{{ url_for('index') }}?category=théories" class="{{ 'active' if current_category=='théories' else '' }}">théories</a>
+      <a href="{{ url_for('index') }}?category=divulgacheur" class="{{ 'active' if current_category=='divulgacheur' else '' }}">divulgâcheur</a>
+      <a href="{{ url_for('index') }}?category=ce jour-là dans l'histoire" class="{{ 'active' if current_category=="ce jour-là dans l'histoire" else '' }}">ce jour-là dans l’histoire</a>
+      {% if session.get('admin') %}
+        <a href="{{ url_for('logout') }}" class="admin">quitter le mode créateur</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="admin">mode créateur</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flashes">
+          {% for cat,msg in messages %}<div class="flash {{cat}}">{{ msg }}</div>{% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <form action="{{ url_for('interest') }}" method="post" class="interest">
+      <label>l’idée vous intéresse ? faites-le savoir</label>
+      <input type="email" name="email" placeholder="votre e-mail" required>
+      <button type="submit">envoyer</button>
+    </form>
+  </footer>
+</body>
+</html>
