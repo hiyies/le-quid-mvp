@@ -7,7 +7,8 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-key")
 ADMIN_CODE = os.environ.get("ADMIN_CODE", "letmein")
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "quid.db")
+import os
+DB_PATH = os.path.join(os.environ.get("DB_DIR", "/tmp"), "quid.db")
 
 def get_db():
     conn = sqlite3.connect(DB_PATH)
