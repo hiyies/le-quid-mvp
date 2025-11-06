@@ -1,1 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>le quid — mvp</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='logo.svg') }}" alt="le quid" class="logo-img">
+      <span class="brand">le quid</span>
+    </div>
 
+    <nav class="nav">
+      <a href="#">aujourd’hui</a>
+      <a href="#">politique</a>
+      <a href="#">sport</a>
+      <a href="#">théories</a>
+      <a href="#">divulgâcheur</a>
+      <a href="#">ce jour-là dans l’histoire</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <form method="post" action="#" class="interest">
+      <label>l’idée vous intéresse ? faites-le savoir</label>
+      <input type="email" name="email" placeholder="email">
+      <button type="submit">envoyer</button>
+    </form>
+  </footer>
+</body>
+</html>
