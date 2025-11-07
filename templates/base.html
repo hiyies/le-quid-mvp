@@ -13,12 +13,12 @@
     <span class="brand">le quid</span>
   </div>
   <nav class="nav">
-    <a href="{{ url_for('index') }}" class="{{ 'active' if not current_category }}">aujourd’hui</a>
-    <a href="{{ url_for('index', category='politique') }}">politique</a>
-    <a href="{{ url_for('index', category='sport') }}">sport</a>
-    <a href="{{ url_for('index', category='théories') }}">théories</a>
-    <a href="{{ url_for('index', category='divulgâcheur') }}">divulgâcheur</a>
-    <a href="{{ url_for('index', category="ce jour-là dans l'histoire") }}">ce jour-là dans l'histoire</a>
+    <a href="{{ url_for('index') }}" class="{% if not current_category %}active{% endif %}">aujourd’hui</a>
+    <a href="{{ url_for('index', category='politique') }}" class="{% if current_category == 'politique' %}active{% endif %}">politique</a>
+    <a href="{{ url_for('index', category='sport') }}" class="{% if current_category == 'sport' %}active{% endif %}">sport</a>
+    <a href="{{ url_for('index', category='théories') }}" class="{% if current_category == 'théories' %}active{% endif %}">théories</a>
+    <a href="{{ url_for('index', category='divulgâcheur') }}" class="{% if current_category == 'divulgâcheur' %}active{% endif %}">divulgâcheur</a>
+    <a href="{{ url_for('index', category="ce jour-là dans l'histoire") }}" class="{% if current_category == "ce jour-là dans l'histoire" %}active{% endif %}">ce jour-là dans l'histoire</a>
   </nav>
 </header>
 
