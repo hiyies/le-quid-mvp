@@ -1,5 +1,7 @@
-from flask import Flask, Response, render_template, request, redirect, url_for, flashimport sqlite3, os
+from flask import Flask, Response, render_template, request, redirect, url_for, flash
+import sqlite3, os
 from datetime import datetime
+
 # Chemins
 DB_PATH = os.environ.get("DB_PATH", "/tmp/quid.db")
 
