@@ -1,10 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>nouveau prologue (temporaire)</h2>
-<form method="post">
-  <input name="title" placeholder="titre" required>
-  <input name="intro" placeholder="intro (optionnel)">
-  <input name="category" placeholder="catégorie (optionnel)">
+<form method="post" class="prologue-form">
+  <label>
+    titre
+    <input name="title" placeholder="titre" required value="{{ request.form.get('title', '') }}">
+  </label>
+  <label>
+    intro (optionnel)
+    <input name="intro" placeholder="intro (optionnel)" value="{{ request.form.get('intro', '') }}">
+  </label>
+  <label>
+    catégorie (optionnel)
+    <input name="category" list="categories" placeholder="catégorie" value="{{ request.form.get('category', '') }}">
+  </label>
+  {% if categories %}
+    <datalist id="categories">
+      {% for cat in categories %}
+        <option value="{{ cat }}"></option>
+      {% endfor %}
+    </datalist>
+  {% endif %}
   <button type="submit">publier</button>
 </form>
 {% endblock %}

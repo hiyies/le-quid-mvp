@@ -116,21 +116,42 @@ def admin_new():
     auth_response = _admin_auth_required()
     if auth_response:
         return auth_response
+    return _handle_prologue_creation(template="login.html")
+
+
+@app.post("/prologues/nouveau")
+@app.get("/prologues/nouveau")
+def public_new_prologue():
+    return _handle_prologue_creation(template="new_prologue.html")
+
+
+def _handle_prologue_creation(template: str):
     if request.method == "POST":
-        title = request.form.get("title","").strip()
-        intro = request.form.get("intro","").strip()
-        category = request.form.get("category","").strip() or None
-        if title:
+        title = request.form.get("title", "").strip()
+        intro = request.form.get("intro", "").strip()
+        category = request.form.get("category", "").strip() or None
+
+        if not title:
+            flash("titre requis.")
+        else:
             conn = get_db()
             c = conn.cursor()
-            c.execute("INSERT INTO prologue(title,intro,category) VALUES(?,?,?)",
-                      (title,intro,category))
+            c.execute(
+                "INSERT INTO prologue(title,intro,category,created_at) VALUES(?,?,?,?)",
+                (title, intro, category, datetime.utcnow().isoformat()),
+            )
             conn.commit()
             new_id = c.lastrowid
             conn.close()
+            flash("prologue publié !")
             return redirect(url_for("prologue", prologue_id=new_id))
-        flash("titre requis.")
-    return render_template("login.html")  # on recycle le gabarit simple de formulaire
+
+    conn = get_db()
+    c = conn.cursor()
+    c.execute("SELECT DISTINCT category FROM prologue WHERE category IS NOT NULL ORDER BY category ASC")
+    categories = [row[0] for row in c.fetchall()]
+    conn.close()
+    return render_template(template, categories=categories, current_category=None)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)

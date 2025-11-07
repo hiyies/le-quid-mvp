@@ -13,12 +13,13 @@
     <span class="brand">le quid</span>
   </div>
   <nav class="nav">
-    <a href="{{ url_for('index') }}" class="{% if not current_category %}active{% endif %}">aujourd’hui</a>
+    <a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' and not current_category %}active{% endif %}">aujourd’hui</a>
     <a href="{{ url_for('index', category='politique') }}" class="{% if current_category == 'politique' %}active{% endif %}">politique</a>
     <a href="{{ url_for('index', category='sport') }}" class="{% if current_category == 'sport' %}active{% endif %}">sport</a>
     <a href="{{ url_for('index', category='théories') }}" class="{% if current_category == 'théories' %}active{% endif %}">théories</a>
     <a href="{{ url_for('index', category='divulgâcheur') }}" class="{% if current_category == 'divulgâcheur' %}active{% endif %}">divulgâcheur</a>
     <a href="{{ url_for('index', category="ce jour-là dans l'histoire") }}" class="{% if current_category == "ce jour-là dans l'histoire" %}active{% endif %}">ce jour-là dans l'histoire</a>
+    <a href="{{ url_for('public_new_prologue') }}" class="{% if request.endpoint == 'public_new_prologue' %}active{% endif %}">publier</a>
   </nav>
 </header>
 

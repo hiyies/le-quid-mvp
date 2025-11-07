@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="form-card">
+  <h2>publier un nouveau prologue</h2>
+  <p class="helper">Partagez une introduction brève, ajoutez une catégorie si besoin, et publiez votre prologue.</p>
+  <form method="post" class="prologue-form">
+    <label>
+      titre
+      <input name="title" placeholder="ex. le futur de l'énergie" required value="{{ request.form.get('title', '') }}">
+    </label>
+    <label>
+      introduction (optionnel)
+      <textarea name="intro" rows="4" placeholder="quelques lignes pour lancer la discussion">{{ request.form.get('intro', '') }}</textarea>
+    </label>
+    <label>
+      catégorie (optionnel)
+      <input name="category" list="categories" placeholder="ex. politique" value="{{ request.form.get('category', '') }}">
+    </label>
+    {% if categories %}
+      <datalist id="categories">
+        {% for cat in categories %}
+          <option value="{{ cat }}"></option>
+        {% endfor %}
+      </datalist>
+    {% endif %}
+    <button type="submit">publier</button>
+  </form>
+</section>
+{% endblock %}

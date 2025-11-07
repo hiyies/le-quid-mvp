@@ -131,3 +131,62 @@ body {
   margin-top: 24px;
   padding: 16px;
 }
+
+.form-card {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 24px;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  background: #faf9f6;
+}
+
+.form-card h2 {
+  margin-top: 0;
+}
+
+.form-card .helper {
+  margin-bottom: 16px;
+  color: #444;
+}
+
+.prologue-form label {
+  display: block;
+  font-weight: 700;
+  text-transform: lowercase;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.prologue-form input,
+.prologue-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid #dcd7c9;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: #fff;
+}
+
+.prologue-form textarea {
+  resize: vertical;
+}
+
+.prologue-form button {
+  background: #d4a73b;
+  border: none;
+  color: #111;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.prologue-form button:hover,
+.prologue-form button:focus {
+  background: #c2912a;
+}
