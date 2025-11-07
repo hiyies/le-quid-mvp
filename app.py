@@ -1,12 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-import sqlite3, os
+from flask import Flask, Response, render_template, request, redirect, url_for, flashimport sqlite3, os
 from datetime import datetime
-
 # Chemins
 DB_PATH = os.environ.get("DB_PATH", "/tmp/quid.db")
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 app.secret_key = os.environ.get("SECRET_KEY", "dev-key")
+ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
 
 # ---------- DB ----------
 def get_db():
@@ -96,9 +96,24 @@ def post_reply():
     return redirect(url_for("prologue", prologue_id=prologue_id))
 
 # Petite page pour créer 1–2 prologues (temporaire, accessible par URL)
+def _admin_auth_required():
+    if not ADMIN_USERNAME or not ADMIN_PASSWORD:
+        return Response("admin credentials not configured", 403)
+    auth = request.authorization
+    if not auth or auth.username != ADMIN_USERNAME or auth.password != ADMIN_PASSWORD:
+        return Response(
+            "auth required",
+            401,
+            {"WWW-Authenticate": 'Basic realm="admin"'},
+        )
+
+
 @app.post("/admin/new")
 @app.get("/admin/new")
 def admin_new():
+    auth_response = _admin_auth_required()
+    if auth_response:
+    return auth_response
     if request.method == "POST":
         title = request.form.get("title","").strip()
         intro = request.form.get("intro","").strip()
