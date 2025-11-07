@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="100" viewBox="0 0 400 100">
-  <rect width="400" height="100" rx="10" fill="#000"/>
-  <text x="50%" y="55%" font-family="ui-monospace, Menlo, Monaco, Consolas, 'Roboto Mono', monospace" font-size="16" fill="#fff">.</text>
-  <text x="42" y="17" font-family="ui-monospace, Menlo, Monaco, Consolas, 'Roboto Mono', monospace" font-size="16" fill="#E0AA3E">/</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24">
+  <rect width="48" height="24" rx="6" fill="#000"/>
+  <text x="14" y="17" font-family="ui-monospace, Menlo, Monaco, Consolas, 'Roboto Mono', monospace" font-size="16" fill="#fff">.</text>
+  <text x="22" y="17" font-family="ui-monospace, Menlo, Monaco, Consolas, 'Roboto Mono', monospace" font-size="16" fill="#E0AA3E">/</text>
 </svg>
