@@ -115,7 +115,7 @@ def _admin_auth_required():
 def admin_new():
     auth_response = _admin_auth_required()
     if auth_response:
-    return auth_response
+        return auth_response
     if request.method == "POST":
         title = request.form.get("title","").strip()
         intro = request.form.get("intro","").strip()
