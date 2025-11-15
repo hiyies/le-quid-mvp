@@ -1,26 +1,41 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="grid">
-  <section class="left">
-    <h2>à la une</h2>
+<div class="grid layout">
+  <section class="left column">
+    <header class="section-header">
+      <h2>prologues à la une</h2>
+    </header>
     <ul class="prologues">
       {% for p in prologues %}
-        <li>
-          <a href="{{ url_for('prologue', prologue_id=p['id']) }}">./ {{ p['title'] }}</a>
-          {% if p['category'] %}
-            <span class="tag">{{ p['category'] }}</span>
-          {% endif %}
+        <li class="prologue-item">
+          <a class="prologue-link" href="{{ url_for('prologue', prologue_id=p['id']) }}">
+            <span class="dot-slash">./</span> {{ p['title'] }}
+          </a>
+          <div class="category-bubble" aria-label="catégorie : {{ p['category'] or "exemple : aujourd’hui" }}" title="catégorie : {{ p['category'] or "exemple : aujourd’hui" }}">
+            <span class="bubble-indicator" aria-hidden="true"></span>
+            <span class="bubble-label">{{ p['category'] or "exemple : aujourd’hui" }}</span>
+          </div>
           {% if p['intro'] %}
-            <div class="intro">{{ p['intro'] }}</div>
+            <p class="prologue-intro">{{ p['intro'] }}</p>
           {% endif %}
         </li>
       {% else %}
-        <li>aucun prologue pour le moment</li>
+        <li class="prologue-item empty">aucun prologue pour le moment</li>
       {% endfor %}
     </ul>
   </section>
 
+  <div class="column-divider" aria-hidden="true"></div>
+
+  <aside class="right column placeholder">
+    <section class="replies-section">
+      <header class="section-header">
+        <h3>répliques</h3>
+      </header>
+      <p class="placeholder-text">sélectionne un prologue à gauche pour afficher les répliques ici</p>
+    </section>
+  </aside>
 </div>
 
 {% endblock %}
