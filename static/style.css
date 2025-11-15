@@ -6,6 +6,9 @@ body {
   margin: 0;
   color: #111;
   background-color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .topbar {
@@ -54,38 +57,135 @@ body {
 }
 
 .container {
+  flex: 1;
   max-width: 1100px;
-  margin: 24px auto;
-  padding: 0 16px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 16px 48px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.home {
+.grid.layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  grid-template-columns: minmax(0, 340px) 1px minmax(0, 1fr);
+  column-gap: 28px;
+  align-items: start;
+  position: relative;
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.column-divider {
+  width: 1px;
+  background: #e5e5e5;
+  align-self: stretch;
+  min-height: 100%;
+}
+
+.left {
+  padding-right: 8px;
+}
+
+.right {
+  padding-left: 8px;
+}
+
+.section-header h2,
+.section-header h3,
+.section-subtitle {
+  font-weight: 700;
+  text-transform: lowercase;
+  margin: 0;
+}
+
+.section-header h2,
+.section-header h3 {
+  letter-spacing: 0.04em;
+}
+
+.section-subtitle {
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
 }
 
 .prologues {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.prologues li {
-  margin: 10px 0;
+.prologue-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.prologues a {
+.prologue-item.empty {
+  color: #777;
+}
+
+.prologue-link {
+  font-size: 1.1rem;
   text-decoration: none;
   color: #111;
+  font-weight: 700;
 }
 
-.chip {
-  font-size: 12px;
-  background: #f2f2f2;
-  border-radius: 12px;
-  padding: 2px 8px;
-  margin-left: 8px;
+.prologue-link:hover,
+.prologue-link:focus {
+  color: #d4a73b;
+}
+
+.category-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  text-transform: lowercase;
+  color: #8c5a11;
+}
+
+.bubble-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d4a73b;
+  box-shadow: 0 0 0 4px rgba(212, 167, 59, 0.15);
+}
+
+.bubble-label {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(244, 241, 234, 0.8);
+}
+
+.prologue-intro {
+  margin: 0;
+  color: #555;
+  line-height: 1.4;
 }
 
 .dot-slash {
@@ -93,41 +193,103 @@ body {
   color: #d4a73b;
 }
 
-.reply {
-  border-bottom: 1px solid #eee;
-  padding: 8px 0;
+.replies {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.reply .meta {
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 4px;
+.reply-item {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 12px;
+}
+
+.reply-item.empty {
+  color: #777;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.reply-meta {
+  font-size: 0.75rem;
+  color: #777;
+  margin-bottom: 6px;
+}
+
+.reply-content {
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+}
+
+.reply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .reply-form textarea {
   width: 100%;
-  min-height: 100px;
+  min-height: 140px;
 }
 
 .reply-form input,
 .reply-form textarea {
-  display: block;
-  width: 100%;
-  margin: 8px 0;
-  padding: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 10px 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
+  resize: vertical;
 }
 
 .reply-form button {
   background: #d4a73b;
   border: 0;
   border-radius: 6px;
-  padding: 8px 12px;
+  padding: 10px 16px;
+  color: #111;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.reply-form button:hover,
+.reply-form button:focus {
+  background: #c7961c;
+}
+
+.placeholder-text {
+  margin: 0;
+  color: #777;
+  line-height: 1.5;
 }
 
 .footer {
   border-top: 1px solid #eee;
   margin-top: 24px;
   padding: 16px;
+}
+
+@media (max-width: 900px) {
+  .grid.layout {
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+  }
+
+  .column-divider {
+    display: none;
+  }
+
+  .left,
+  .right {
+    padding: 0;
+  }
+
+  .section-header h2,
+  .section-header h3,
+  .section-subtitle {
+    letter-spacing: 0.06em;
+  }
 }
