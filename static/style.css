@@ -261,6 +261,67 @@ body {
   background: #c7961c;
 }
 
+.interest-signup {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  padding-top: 24px;
+}
+
+.interest-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  margin: 0;
+}
+
+.interest-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.interest-form input {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  min-width: 260px;
+}
+
+.interest-form button {
+  background: #d4a73b;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 16px;
+  color: #111;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.interest-form button:hover,
+.interest-form button:focus {
+  background: #c7961c;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .placeholder-text {
   margin: 4px 0 0;
   color: #777;
