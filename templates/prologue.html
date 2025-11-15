@@ -1,33 +1,49 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="grid">
-  <section class="left">
-    <h2>./ {{ p['title'] }}</h2>
-    {% if p['intro'] %}<p class="intro">{{ p['intro'] }}</p>{% endif %}
-    {% if p['category'] %}<p class="tag">{{ p['category'] }}</p>{% endif %}
+<div class="grid layout">
+  <section class="left column">
+    <header class="section-header">
+      <h2><span class="dot-slash">./</span> {{ p['title'] }}</h2>
+      <div class="category-bubble" aria-label="catégorie : {{ p['category'] or "exemple : aujourd’hui" }}" title="catégorie : {{ p['category'] or "exemple : aujourd’hui" }}">
+        <span class="bubble-indicator" aria-hidden="true"></span>
+        <span class="bubble-label">{{ p['category'] or "exemple : aujourd’hui" }}</span>
+      </div>
+    </header>
 
-    <h3>répliques</h3>
-    <ul class="replies">
-      {% for r in replies %}
-        <li>
-          <div class="meta">{{ r['alias'] or 'anonyme' }} — {{ r['created_at'] }}</div>
-          <div class="txt">{{ r['content'] }}</div>
-        </li>
-      {% else %}
-        <li>pas encore de réplique</li>
-      {% endfor %}
-    </ul>
+    {% if p['intro'] %}<p class="prologue-intro">{{ p['intro'] }}</p>{% endif %}
   </section>
 
-  <aside class="right">
-    <h3>répliquer</h3>
-    <form method="post" action="{{ url_for('post_reply') }}">
-      <input type="hidden" name="prologue_id" value="{{ p['id'] }}">
-      <input name="alias" placeholder="votre alias (optionnel)">
-      <textarea name="content" rows="5" placeholder="votre réplique..."></textarea>
-      <button type="submit">répliquer</button>
-    </form>
+  <div class="column-divider" aria-hidden="true"></div>
+
+  <aside class="right column">
+    <section class="replies-section">
+      <header class="section-header">
+        <h3>répliques</h3>
+      </header>
+      <ul class="replies">
+        {% for r in replies %}
+          <li class="reply-item">
+            <div class="reply-meta">{{ r['alias'] or 'anonyme' }} — {{ r['created_at'] }}</div>
+            <div class="reply-content">{{ r['content'] }}</div>
+          </li>
+        {% else %}
+          <li class="reply-item empty">pas encore de réplique</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="reply-form-section">
+      <header class="section-header">
+        <h3 class="section-subtitle">répliquer</h3>
+      </header>
+      <form class="reply-form" method="post" action="{{ url_for('post_reply') }}">
+        <input type="hidden" name="prologue_id" value="{{ p['id'] }}">
+        <input name="alias" placeholder="votre alias (optionnel)">
+        <textarea name="content" rows="5" placeholder="votre réplique..."></textarea>
+        <button type="submit">répliquer</button>
+      </form>
+    </section>
   </aside>
 </div>
 
