@@ -262,7 +262,7 @@ body {
 }
 
 .placeholder-text {
-  margin: 0;
+  margin: 4px 0 0;
   color: #777;
   line-height: 1.5;
 }
